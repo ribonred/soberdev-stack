@@ -1,0 +1,8 @@
+provider: digitalocean
+
+digitalocean:
+  apiToken: ppp
+
+interval: "1m"
+
+policy: sync # or upsert-only

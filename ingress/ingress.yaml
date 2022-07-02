@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: soberdev-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - soberdev.com
+    - docs.soberdev.com
+    - development.soberdev.com
+    secretName: soberdev-tls
+  rules:
+  - host: soberdev.com
+    http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: homepage-service
+              port:
+                number: 80
+  - host: docs.soberdev.com
+    http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: docs-soberdev-wiki
+              port:
+                number: 80
+  - host: development.soberdev.com
+    http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: rocketchat-rocketchat
+              port:
+                number: 80
